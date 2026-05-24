@@ -1,0 +1,36 @@
+name: Update Audible Books
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-books:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run scraper
+        run: python scraper.py
+
+      - name: Commit updated books
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add books.json
+          git commit -m "Update Audible books" || echo "No changes"
+          git push
