@@ -113,7 +113,7 @@
 
 <body>
 
-  <h1>Audiobook Portfolio</h1>
+  <h1>Books I've Narrated</h1>
 
   <div class="stats">
     <p><strong>Total audiobooks narrated:</strong> <span id="totalBooks">0</span></p>
@@ -178,8 +178,6 @@
               <h3>${book.title}</h3>
               <p><strong>Author:</strong> ${book.author || "Not listed"}</p>
               <p><strong>Release:</strong> ${book.release_date || "Not listed"}</p>
-              <p><strong>Reviews:</strong> ${book.reviews ? book.reviews.toLocaleString() : "0"}</p>
-              <p><strong>Searched Narrator:</strong> ${book.searched_narrator}</p>
               <p><strong>Narrators:</strong></p>
               ${narrators}
               <br><br>
