@@ -14,44 +14,89 @@
     }
 
     h1 {
-      margin-bottom: 25px;
+      margin-bottom: 24px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 24px;
+    .carousel-wrapper {
+      position: relative;
+      overflow: hidden;
     }
 
-    .book {
-      background: #1d1d1d;
+    .carousel {
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-bottom: 20px;
+    }
+
+    .book-card {
+      min-width: 210px;
+      max-width: 210px;
+      position: relative;
       border-radius: 14px;
-      padding: 14px;
-      text-align: center;
+      overflow: hidden;
+      background: #1d1d1d;
+      flex-shrink: 0;
     }
 
-    .book img {
+    .book-card img {
       width: 100%;
-      border-radius: 10px;
+      display: block;
+      border-radius: 14px;
     }
 
-    .book h3 {
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      padding: 16px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .book-card:hover .overlay {
+      opacity: 1;
+    }
+
+    .overlay h3 {
       font-size: 16px;
-      margin: 12px 0 6px;
+      margin: 0 0 8px;
     }
 
-    .book p {
-      font-size: 14px;
-      color: #bbb;
-      margin: 5px 0;
+    .overlay p {
+      font-size: 13px;
+      color: #ddd;
+      margin: 6px 0;
     }
 
-    .book a {
-      display: inline-block;
-      margin-top: 10px;
+    .overlay a {
       color: #d8b46a;
-      text-decoration: none;
       font-weight: bold;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .narrator-link {
+      display: block;
+      margin-top: 4px;
+    }
+
+    .buttons {
+      margin-top: 18px;
+    }
+
+    button {
+      background: #d8b46a;
+      border: none;
+      color: #111;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 8px;
     }
   </style>
 </head>
@@ -60,28 +105,54 @@
 
   <h1>Audiobook Portfolio</h1>
 
-  <div id="books" class="grid"></div>
+  <div class="carousel-wrapper">
+    <div id="books" class="carousel"></div>
+  </div>
+
+  <div class="buttons">
+    <button onclick="scrollCarousel(-1)">←</button>
+    <button onclick="scrollCarousel(1)">→</button>
+  </div>
 
   <script>
+    const carousel = document.getElementById("books");
+
+    function scrollCarousel(direction) {
+      carousel.scrollBy({
+        left: direction * 260,
+        behavior: "smooth"
+      });
+    }
+
     fetch("books.json")
       .then(response => response.json())
       .then(data => {
-        const container = document.getElementById("books");
-
         data.forEach(book => {
           const div = document.createElement("div");
-          div.className = "book";
+          div.className = "book-card";
+
+          const narrators = book.co_narrators && book.co_narrators.length
+            ? book.co_narrators.map(n =>
+                `<a class="narrator-link" href="${n.audible_list}" target="_blank">${n.name}</a>`
+              ).join("")
+            : "Not listed";
 
           div.innerHTML = `
             <img src="${book.cover}" alt="${book.title}">
-            <h3>${book.title}</h3>
-            <p>${book.author}</p>
-            <p>${book.reviews.toLocaleString()} reviews</p>
-            <p>Narrator search: ${book.narrator_searched}</p>
-            <a href="${book.audible_url}" target="_blank">Listen on Audible</a>
+
+            <div class="overlay">
+              <h3>${book.title}</h3>
+              <p><strong>Author:</strong> ${book.author || "Not listed"}</p>
+              <p><strong>Release:</strong> ${book.release_date || "Not listed"}</p>
+              <p><strong>Searched Narrator:</strong> ${book.searched_narrator}</p>
+              <p><strong>Narrators:</strong></p>
+              ${narrators}
+              <br><br>
+              <a href="${book.audible_url}" target="_blank">Listen on Audible</a>
+            </div>
           `;
 
-          container.appendChild(div);
+          carousel.appendChild(div);
         });
       });
   </script>
