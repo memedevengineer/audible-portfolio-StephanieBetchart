@@ -31,13 +31,27 @@ def scrape_narrator(narrator):
         author = author_tag.get_text(strip=True) if author_tag else ""
         cover = image_tag.get("src", "") if image_tag else ""
 
-        books.append({
-            "title": title,
-            "author": author,
-            "narrator_searched": narrator,
-            "cover": cover,
-            "audible_url": link
-        })
+       rating_tag = item.select_one(".ratingsLabel")
+rating_text = rating_tag.get_text(" ", strip=True) if rating_tag else ""
+
+review_count = 0
+
+try:
+    import re
+    numbers = re.findall(r'[\d,]+', rating_text)
+    if numbers:
+        review_count = int(numbers[-1].replace(",", ""))
+except:
+    pass
+
+books.append({
+    "title": title,
+    "author": author,
+    "narrator_searched": narrator,
+    "cover": cover,
+    "audible_url": link,
+    "reviews": review_count
+})
 
     return books
 
