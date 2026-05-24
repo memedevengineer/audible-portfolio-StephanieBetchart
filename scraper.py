@@ -4,11 +4,13 @@ import time
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
+from datetime import datetime, timezone
 
 BASE_URL = "https://www.audible.com/search?searchNarrator="
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0"
+    "User-Agent": "Mozilla/5.0",
+    "Accept-Language": "en-US,en;q=0.9"
 }
 
 def clean_text(text):
@@ -90,22 +92,24 @@ def main():
     all_books = []
 
     for narrator in narrators:
-        books = scrape_narrator(narrator)
-        all_books.extend(books)
+        all_books.extend(scrape_narrator(narrator))
         time.sleep(3)
 
-    # Remove duplicates by Audible URL
     unique = {}
     for book in all_books:
         unique[book["audible_url"]] = book
 
     final_books = list(unique.values())
-
-    # Most popular first
     final_books.sort(key=lambda x: x.get("reviews", 0), reverse=True)
 
+    output = {
+        "last_updated": datetime.now(timezone.utc).isoformat(),
+        "total_books": len(final_books),
+        "books": final_books
+    }
+
     with open("books.json", "w", encoding="utf-8") as f:
-        json.dump(final_books, f, indent=2, ensure_ascii=False)
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
     print(f"Saved {len(final_books)} books.")
 
