@@ -1,4 +1,5 @@
 import json
+import re
 import time
 import requests
 from bs4 import BeautifulSoup
@@ -6,8 +7,23 @@ from urllib.parse import quote_plus
 
 BASE_URL = "https://www.audible.com/search?searchNarrator="
 
+def get_review_count(text):
+    if not text:
+        return 0
+
+    numbers = re.findall(r"[\d,]+", text)
+
+    if not numbers:
+        return 0
+
+    try:
+        return int(numbers[-1].replace(",", ""))
+    except ValueError:
+        return 0
+
 def scrape_narrator(narrator):
     url = BASE_URL + quote_plus(narrator)
+
     headers = {
         "User-Agent": "Mozilla/5.0"
     }
@@ -21,37 +37,29 @@ def scrape_narrator(narrator):
         title_tag = item.select_one("h3 a")
         author_tag = item.select_one(".authorLabel a")
         image_tag = item.select_one("img")
-        narrator_tag = item.select_one(".narratorLabel")
+        rating_tag = item.select_one(".ratingsLabel")
 
         if not title_tag:
             continue
 
         title = title_tag.get_text(strip=True)
-        link = "https://www.audible.com" + title_tag.get("href", "")
         author = author_tag.get_text(strip=True) if author_tag else ""
         cover = image_tag.get("src", "") if image_tag else ""
+        rating_text = rating_tag.get_text(" ", strip=True) if rating_tag else ""
+        reviews = get_review_count(rating_text)
 
-       rating_tag = item.select_one(".ratingsLabel")
-rating_text = rating_tag.get_text(" ", strip=True) if rating_tag else ""
+        link = title_tag.get("href", "")
+        if link.startswith("/"):
+            link = "https://www.audible.com" + link
 
-review_count = 0
-
-try:
-    import re
-    numbers = re.findall(r'[\d,]+', rating_text)
-    if numbers:
-        review_count = int(numbers[-1].replace(",", ""))
-except:
-    pass
-
-books.append({
-    "title": title,
-    "author": author,
-    "narrator_searched": narrator,
-    "cover": cover,
-    "audible_url": link,
-    "reviews": review_count
-})
+        books.append({
+            "title": title,
+            "author": author,
+            "narrator_searched": narrator,
+            "cover": cover,
+            "audible_url": link,
+            "reviews": reviews
+        })
 
     return books
 
@@ -65,6 +73,8 @@ def main():
         print(f"Scraping {narrator}...")
         all_books.extend(scrape_narrator(narrator))
         time.sleep(2)
+
+    all_books.sort(key=lambda x: x["reviews"], reverse=True)
 
     with open("books.json", "w", encoding="utf-8") as f:
         json.dump(all_books, f, indent=2, ensure_ascii=False)
