@@ -1,1 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Audiobook Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
 
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+    }
+
+    .book {
+      background: #1d1d1d;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .book img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .book h3 {
+      font-size: 16px;
+      margin: 12px 0 6px;
+    }
+
+    .book p {
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .book a {
+      color: #d8b46a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Audiobook Portfolio</h1>
+  <div id="books" class="grid"></div>
+
+  <script>
+    fetch("books.json")
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById("books");
+
+        data.forEach(book => {
+          const div = document.createElement("div");
+          div.className = "book";
+
+          div.innerHTML = `
+            <img src="${book.cover}" alt="${book.title}">
+            <h3>${book.title}</h3>
+            <p>${book.author}</p>
+            <p>Narrator search: ${book.narrator_searched}</p>
+            <a href="${book.audible_url}" target="_blank">Listen on Audible</a>
+          `;
+
+          container.appendChild(div);
+        });
+      });
+  </script>
+
+</body>
+</html>
