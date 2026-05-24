@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Works I've Narrated</title>
+  <title>Books I've Narrated</title>
 
   <style>
     body {
@@ -27,8 +27,15 @@
       font-size: 15px;
     }
 
-    .carousel-wrapper {
+    .carousel-container {
       position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .carousel-wrapper {
+      width: 100%;
       overflow: hidden;
     }
 
@@ -39,7 +46,7 @@
       scroll-behavior: smooth;
       padding-bottom: 20px;
 
-      /* hide scrollbar */
+      /* Hide scrollbar */
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -62,6 +69,11 @@
       width: 100%;
       display: block;
       border-radius: 14px;
+      transition: transform 0.25s ease;
+    }
+
+    .book-card:hover img {
+      transform: scale(1.03);
     }
 
     .overlay {
@@ -74,7 +86,6 @@
       box-sizing: border-box;
       overflow-y: auto;
 
-      /* hide overlay scrollbar */
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -99,7 +110,7 @@
     }
 
     .overlay a {
-      color: #d8b46a;
+      color: #c48b36;
       font-weight: bold;
       text-decoration: none;
       font-size: 13px;
@@ -110,29 +121,41 @@
       margin-top: 4px;
     }
 
-    .buttons {
-      margin-top: 18px;
+    .carousel-arrow {
+      position: absolute;
+      z-index: 20;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(196, 139, 54, 0.92);
+      color: white;
+      cursor: pointer;
+      font-size: 22px;
+      transition: 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    button {
-      background: #d8b46a;
-      border: none;
-      color: #111;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-right: 8px;
+    .carousel-arrow:hover {
+      background: #c48b36;
+      transform: scale(1.08);
+    }
+
+    .left-arrow {
+      left: -10px;
+    }
+
+    .right-arrow {
+      right: -10px;
     }
 
     .last-updated {
-      position: fixed;
-      right: 10px;
-      bottom: 8px;
-      font-size: 9px;
-      color: rgba(255, 255, 255, 0.45);
-      line-height: 1.2;
-      z-index: 50;
+      margin-top: 4px;
+      text-align: right;
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
     }
   </style>
 </head>
@@ -145,13 +168,20 @@
     <p><strong>Total audiobooks narrated:</strong> <span id="totalBooks">0</span></p>
   </div>
 
-  <div class="carousel-wrapper">
-    <div id="books" class="carousel"></div>
-  </div>
+  <div class="carousel-container">
 
-  <div class="buttons">
-    <button onclick="scrollCarousel(-1)">←</button>
-    <button onclick="scrollCarousel(1)">→</button>
+    <button class="carousel-arrow left-arrow" onclick="scrollCarousel(-1)">
+      &#10094;
+    </button>
+
+    <div class="carousel-wrapper">
+      <div id="books" class="carousel"></div>
+    </div>
+
+    <button class="carousel-arrow right-arrow" onclick="scrollCarousel(1)">
+      &#10095;
+    </button>
+
   </div>
 
   <div class="last-updated">
@@ -187,30 +217,58 @@
     fetch("books.json")
       .then(response => response.json())
       .then(data => {
-        document.getElementById("totalBooks").textContent = data.total_books || 0;
-        document.getElementById("lastUpdated").textContent = formatDate(data.last_updated);
+
+        document.getElementById("totalBooks").textContent =
+          data.total_books || 0;
+
+        document.getElementById("lastUpdated").textContent =
+          formatDate(data.last_updated);
 
         data.books.forEach(book => {
+
           const div = document.createElement("div");
           div.className = "book-card";
 
-          const narrators = book.co_narrators && book.co_narrators.length
-            ? book.co_narrators.map(n =>
-                `<a class="narrator-link" href="${n.audible_list}" target="_blank">${n.name}</a>`
-              ).join("")
-            : "Not listed";
+          const narrators =
+            book.co_narrators && book.co_narrators.length
+              ? book.co_narrators.map(n =>
+                  `<a class="narrator-link"
+                      href="${n.audible_list}"
+                      target="_blank">
+                      ${n.name}
+                   </a>`
+                ).join("")
+              : "Not listed";
 
           div.innerHTML = `
             <img src="${book.cover}" alt="${book.title}">
 
             <div class="overlay">
+
               <h3>${book.title}</h3>
-              <p><strong>Author:</strong> ${book.author || "Not listed"}</p>
-              <p><strong>Release:</strong> ${book.release_date || "Not listed"}</p>
-              <p><strong>Narrators:</strong></p>
+
+              <p>
+                <strong>Author:</strong>
+                ${book.author || "Not listed"}
+              </p>
+
+              <p>
+                <strong>Release:</strong>
+                ${book.release_date || "Not listed"}
+              </p>
+
+              <p>
+                <strong>Narrators:</strong>
+              </p>
+
               ${narrators}
+
               <br>
-              <a href="${book.audible_url}" target="_blank">Listen on Audible</a>
+
+              <a href="${book.audible_url}" target="_blank">
+                Listen on Audible
+              </a>
+
             </div>
           `;
 
