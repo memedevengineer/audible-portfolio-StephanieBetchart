@@ -1,3 +1,6 @@
+
+
+
 import csv
 import json
 import re
@@ -48,27 +51,22 @@ def scrape_book_page(audible_url, narrator_name, credit_note):
     title_tag = soup.select_one("h1")
     title = clean_text(title_tag.get_text()) if title_tag else ""
 
-    author = ""
-    author_tag = soup.select_one("li.authorLabel a, .authorLabel a")
-    if author_tag:
-        author = clean_text(author_tag.get_text())
+    author_tag = soup.select_one(".authorLabel a")
+    author = clean_text(author_tag.get_text()) if author_tag else ""
 
-    cover = ""
-    image_tag = soup.select_one("img.bc-pub-block")
-    if image_tag:
-        cover = image_tag.get("src", "")
+    image_tag = soup.select_one("img")
+    cover = image_tag.get("src", "") if image_tag else ""
+
+    rating_tag = soup.select_one(".ratingsLabel")
+    rating_text = clean_text(rating_tag.get_text(" ", strip=True)) if rating_tag else ""
+    reviews = get_review_count(rating_text)
 
     release_date = ""
-    release_text = soup.find(string=re.compile("Release date", re.I))
-    if release_text:
-        release_date = clean_text(str(release_text)).replace("Release date:", "").strip()
-
-    rating_text = ""
-    rating_tag = soup.select_one(".ratingsLabel")
-    if rating_tag:
-        rating_text = clean_text(rating_tag.get_text(" ", strip=True))
-
-    reviews = get_review_count(rating_text)
+    release_tag = soup.select_one(".releaseDateLabel")
+    if release_tag:
+        release_date = clean_text(
+            release_tag.get_text(" ", strip=True)
+        ).replace("Release date:", "").strip()
 
     return {
         "title": title,
@@ -107,7 +105,7 @@ def main():
             book = scrape_book_page(audible_url, narrator_name, credit_note)
             manual_books.append(book)
         except Exception as e:
-            print(f"Failed: {audible_url}")
+            print(f"Failed manual book: {audible_url}")
             print(e)
 
         time.sleep(2)
