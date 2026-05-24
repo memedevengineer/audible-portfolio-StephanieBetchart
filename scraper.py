@@ -140,7 +140,6 @@ def main():
         unique[url] = book
 
     final_books = list(unique.values())
-
     final_books.sort(key=lambda x: x.get("reviews", 0), reverse=True)
 
     output = {
