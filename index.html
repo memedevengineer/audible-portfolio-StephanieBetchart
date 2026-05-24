@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Audiobook Portfolio</title>
+
   <style>
     body {
       margin: 0;
@@ -10,6 +11,10 @@
       background: #111;
       color: white;
       font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 25px;
     }
 
     .grid {
@@ -38,18 +43,23 @@
     .book p {
       font-size: 14px;
       color: #bbb;
+      margin: 5px 0;
     }
 
     .book a {
+      display: inline-block;
+      margin-top: 10px;
       color: #d8b46a;
       text-decoration: none;
       font-weight: bold;
     }
   </style>
 </head>
+
 <body>
 
   <h1>Audiobook Portfolio</h1>
+
   <div id="books" class="grid"></div>
 
   <script>
@@ -66,6 +76,7 @@
             <img src="${book.cover}" alt="${book.title}">
             <h3>${book.title}</h3>
             <p>${book.author}</p>
+            <p>${book.reviews.toLocaleString()} reviews</p>
             <p>Narrator search: ${book.narrator_searched}</p>
             <a href="${book.audible_url}" target="_blank">Listen on Audible</a>
           `;
