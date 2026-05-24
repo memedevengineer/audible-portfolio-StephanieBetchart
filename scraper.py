@@ -7,6 +7,7 @@ from urllib.parse import quote_plus
 from datetime import datetime, timezone
 
 BASE_URL = "https://www.audible.com/search?searchNarrator="
+MANUAL_JSON = "manual_books.json"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0",
@@ -20,6 +21,7 @@ def get_review_count(text):
     numbers = re.findall(r"[\d,]+", text or "")
     if not numbers:
         return 0
+
     try:
         return int(numbers[-1].replace(",", ""))
     except:
@@ -30,11 +32,12 @@ def make_audible_narrator_link(name):
 
 def scrape_narrator(narrator):
     url = BASE_URL + quote_plus(narrator)
-    print(f"Scraping: {url}")
+    print(f"Scraping narrator: {url}")
 
     response = requests.get(url, headers=HEADERS, timeout=30)
-    soup = BeautifulSoup(response.text, "html.parser")
+    response.raise_for_status()
 
+    soup = BeautifulSoup(response.text, "html.parser")
     books = []
 
     for item in soup.select("li.productListItem"):
@@ -43,6 +46,7 @@ def scrape_narrator(narrator):
             continue
 
         title = clean_text(title_tag.get_text())
+
         link = title_tag.get("href", "")
         if link.startswith("/"):
             link = "https://www.audible.com" + link
@@ -58,7 +62,11 @@ def scrape_narrator(narrator):
         reviews = get_review_count(rating_text)
 
         release_tag = item.select_one(".releaseDateLabel")
-        release_date = clean_text(release_tag.get_text(" ", strip=True)).replace("Release date:", "").strip() if release_tag else ""
+        release_date = ""
+        if release_tag:
+            release_date = clean_text(
+                release_tag.get_text(" ", strip=True)
+            ).replace("Release date:", "").strip()
 
         narrator_links = item.select(".narratorLabel a")
         co_narrators = []
@@ -80,10 +88,28 @@ def scrape_narrator(narrator):
             "rating_text": rating_text,
             "release_date": release_date,
             "searched_narrator": narrator,
+            "credit_note": "",
+            "manual": False,
             "co_narrators": co_narrators
         })
 
     return books
+
+def load_manual_books():
+    try:
+        with open(MANUAL_JSON, "r", encoding="utf-8") as f:
+            manual_books = json.load(f)
+
+        print(f"Loaded {len(manual_books)} manual books.")
+        return manual_books
+
+    except FileNotFoundError:
+        print("No manual_books.json found.")
+        return []
+
+    except json.JSONDecodeError:
+        print("manual_books.json is not valid JSON.")
+        return []
 
 def main():
     with open("narrators.txt", "r", encoding="utf-8") as f:
@@ -92,14 +118,29 @@ def main():
     all_books = []
 
     for narrator in narrators:
-        all_books.extend(scrape_narrator(narrator))
+        try:
+            all_books.extend(scrape_narrator(narrator))
+        except Exception as e:
+            print(f"Failed to scrape narrator: {narrator}")
+            print(e)
+
         time.sleep(3)
 
+    manual_books = load_manual_books()
+    all_books.extend(manual_books)
+
     unique = {}
+
     for book in all_books:
-        unique[book["audible_url"]] = book
+        url = book.get("audible_url", "")
+
+        if not url:
+            continue
+
+        unique[url] = book
 
     final_books = list(unique.values())
+
     final_books.sort(key=lambda x: x.get("reviews", 0), reverse=True)
 
     output = {
@@ -111,7 +152,7 @@ def main():
     with open("books.json", "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"Saved {len(final_books)} books.")
+    print(f"Saved {len(final_books)} total books.")
 
 if __name__ == "__main__":
     main()
