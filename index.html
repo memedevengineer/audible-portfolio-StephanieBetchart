@@ -14,7 +14,17 @@
     }
 
     h1 {
+      margin-bottom: 10px;
+    }
+
+    .stats {
       margin-bottom: 24px;
+      color: #ccc;
+    }
+
+    .stats p {
+      margin: 4px 0;
+      font-size: 15px;
     }
 
     .carousel-wrapper {
@@ -105,6 +115,11 @@
 
   <h1>Audiobook Portfolio</h1>
 
+  <div class="stats">
+    <p><strong>Total audiobooks narrated:</strong> <span id="totalBooks">0</span></p>
+    <p><strong>Last updated:</strong> <span id="lastUpdated">Loading...</span></p>
+  </div>
+
   <div class="carousel-wrapper">
     <div id="books" class="carousel"></div>
   </div>
@@ -124,10 +139,29 @@
       });
     }
 
+    function formatDate(dateString) {
+      if (!dateString) return "Not available";
+
+      const date = new Date(dateString);
+
+      return date.toLocaleString("en-US", {
+        timeZone: "America/New_York",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        timeZoneName: "short"
+      });
+    }
+
     fetch("books.json")
       .then(response => response.json())
       .then(data => {
-        data.forEach(book => {
+        document.getElementById("totalBooks").textContent = data.total_books || 0;
+        document.getElementById("lastUpdated").textContent = formatDate(data.last_updated);
+
+        data.books.forEach(book => {
           const div = document.createElement("div");
           div.className = "book-card";
 
@@ -144,6 +178,7 @@
               <h3>${book.title}</h3>
               <p><strong>Author:</strong> ${book.author || "Not listed"}</p>
               <p><strong>Release:</strong> ${book.release_date || "Not listed"}</p>
+              <p><strong>Reviews:</strong> ${book.reviews ? book.reviews.toLocaleString() : "0"}</p>
               <p><strong>Searched Narrator:</strong> ${book.searched_narrator}</p>
               <p><strong>Narrators:</strong></p>
               ${narrators}
