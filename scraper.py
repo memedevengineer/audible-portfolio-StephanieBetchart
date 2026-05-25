@@ -9,6 +9,8 @@ from datetime import datetime, timezone
 BASE_URL = "https://www.audible.com/search?searchNarrator="
 MANUAL_JSON = "manual_books.json"
 
+MINIMUM_BOOKS_REQUIRED = 5
+
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -252,6 +254,15 @@ def main():
         "total_books": len(final_books),
         "books": final_books
     }
+
+    # FAIL SAFE
+    if len(final_books) < MINIMUM_BOOKS_REQUIRED:
+
+        print("\nFAIL SAFE TRIGGERED")
+        print(f"Only found {len(final_books)} books.")
+        print("books.json NOT updated.")
+
+        return
 
     with open("books.json", "w", encoding="utf-8") as f:
 
