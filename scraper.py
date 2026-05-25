@@ -10,8 +10,18 @@ BASE_URL = "https://www.audible.com/search?searchNarrator="
 MANUAL_JSON = "manual_books.json"
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0",
-    "Accept-Language": "en-US,en;q=0.9"
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept": (
+        "text/html,application/xhtml+xml,application/xml;q=0.9,"
+        "image/webp,*/*;q=0.8"
+    ),
+    "Connection": "keep-alive",
+    "Referer": "https://www.google.com/"
 }
 
 
@@ -37,16 +47,31 @@ def make_audible_narrator_link(name):
 
 def scrape_narrator(narrator):
 
+    session = requests.Session()
+
     url = BASE_URL + quote_plus(narrator)
 
     print(f"\nScraping narrator: {narrator}")
     print(url)
 
-    response = requests.get(
+    response = session.get(
         url,
         headers=HEADERS,
         timeout=30
     )
+
+    if response.status_code != 200:
+
+        print(f"First attempt failed ({response.status_code})")
+        print("Retrying in 10 seconds...")
+
+        time.sleep(10)
+
+        response = session.get(
+            url,
+            headers=HEADERS,
+            timeout=30
+        )
 
     response.raise_for_status()
 
@@ -98,6 +123,7 @@ def scrape_narrator(narrator):
             release_tag = item.select_one(".releaseDateLabel")
 
             if release_tag:
+
                 release_date = clean_text(
                     release_tag.get_text(" ", strip=True)
                 )
@@ -116,6 +142,7 @@ def scrape_narrator(narrator):
                 name = clean_text(n.get_text())
 
                 if name:
+
                     co_narrators.append({
                         "name": name,
                         "audible_list": make_audible_narrator_link(name)
@@ -136,6 +163,7 @@ def scrape_narrator(narrator):
             })
 
         except Exception as e:
+
             print(f"Failed item for {narrator}")
             print(e)
 
@@ -195,7 +223,7 @@ def main():
             print(f"\nFAILED narrator: {narrator}")
             print(e)
 
-        time.sleep(3)
+        time.sleep(8)
 
     manual_books = load_manual_books()
 
