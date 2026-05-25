@@ -2,7 +2,8 @@ name: Update Audible Books
 
 on:
   schedule:
-    - cron: "0 7 * * *"
+    - cron: '0 7 * * *'   # Midnight EST
+
   workflow_dispatch:
 
 permissions:
@@ -19,21 +20,26 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4
-
-      - name: Create manual books JSON
-        run: python make_manual_json.py
+        run: |
+          pip install requests beautifulsoup4 lxml
 
       - name: Run scraper
         run: python scraper.py
 
-      - name: Commit updated files
+      - name: Run manual scraper
+        run: python make_manual_json.py
+
+      - name: Commit updated JSON
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add books.json manual_books.json
-          git commit -m "Daily Audible book update" || echo "No changes"
+
+          git add books.json
+          git add manual_books.json
+
+          git diff --cached --quiet || git commit -m "Auto update books"
+
           git push
