@@ -26,19 +26,18 @@ jobs:
         run: |
           pip install requests beautifulsoup4 lxml
 
-      - name: Run scraper
-        run: python scraper.py
-
       - name: Run manual scraper
         run: python make_manual_json.py
+
+      - name: Run scraper
+        run: python scraper.py
 
       - name: Commit updated JSON
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add books.json
-          git add manual_books.json
+          git add books.json manual_books.json
 
           git diff --cached --quiet || git commit -m "Auto update books"
 
