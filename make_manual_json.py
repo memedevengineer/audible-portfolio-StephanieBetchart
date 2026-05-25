@@ -47,7 +47,6 @@ def extract_json_objects(html):
         if not script:
             continue
 
-        # Try Next.js / app JSON
         if "__NEXT_DATA__" in script or "asin" in script.lower() or "release" in script.lower():
             try:
                 start = script.find("{")
@@ -83,41 +82,61 @@ def find_in_json(json_objects):
         for obj in walk_json(root):
             keys = {str(k).lower(): k for k in obj.keys()}
 
-            # title
-            for key in ["title", "name"]:
+            # Title — do NOT use generic "name" because it may be publisher
+            for key in ["title", "producttitle", "product_title"]:
                 if key in keys and not data["title"]:
                     value = obj.get(keys[key])
                     if isinstance(value, str) and len(value) > 2:
                         data["title"] = clean_text(value)
 
-            # cover
-            for key in ["image", "cover", "coverimage", "productimage", "productimageurl"]:
+            # Cover image
+            for key in [
+                "image",
+                "cover",
+                "coverimage",
+                "cover_image",
+                "productimage",
+                "productimageurl",
+                "product_image_url"
+            ]:
                 if key in keys and not data["cover"]:
                     value = obj.get(keys[key])
                     if isinstance(value, str) and "amazon" in value.lower():
                         data["cover"] = value
 
-            # release date
-            for key in ["releasedate", "release_date", "publicationdate", "publication_date"]:
+            # Release date
+            for key in [
+                "releasedate",
+                "release_date",
+                "publicationdate",
+                "publication_date"
+            ]:
                 if key in keys and not data["release_date"]:
                     value = obj.get(keys[key])
                     if isinstance(value, str):
                         data["release_date"] = clean_text(value)
 
-            # author
+            # Author
             for key in ["author", "authors"]:
                 if key in keys and not data["author"]:
                     value = obj.get(keys[key])
+
                     if isinstance(value, str):
                         data["author"] = clean_text(value)
+
                     elif isinstance(value, list):
                         names = []
+
                         for item in value:
                             if isinstance(item, str):
                                 names.append(item)
+
                             elif isinstance(item, dict):
-                                names.append(item.get("name", ""))
-                        data["author"] = clean_text(", ".join([n for n in names if n]))
+                                name = item.get("name") or item.get("title") or ""
+                                if name:
+                                    names.append(name)
+
+                        data["author"] = clean_text(", ".join(names))
 
     return data
 
@@ -127,6 +146,7 @@ def get_best_cover_from_html(soup):
     for img in soup.select("img"):
         for attr in ["data-a-hires", "data-src", "src"]:
             src = img.get(attr, "")
+
             if not src:
                 continue
 
@@ -195,16 +215,17 @@ def scrape_book_page(audible_url, narrator_name, credit_note):
 
     json_data = find_in_json(extract_json_objects(html))
 
-    title = json_data["title"] or get_meta_content(soup, 'meta[property="og:title"]')
-    if not title:
-        h1 = soup.select_one("h1")
-        title = clean_text(h1.get_text()) if h1 else ""
+    h1 = soup.select_one("h1")
+    h1_title = clean_text(h1.get_text()) if h1 else ""
+
+    meta_title = get_meta_content(soup, 'meta[property="og:title"]')
+
+    title = h1_title or meta_title or json_data["title"]
 
     text_author, text_release, rating_text, reviews = extract_from_text(page_text)
 
     author = json_data["author"] or text_author
     release_date = json_data["release_date"] or text_release
-
     cover = json_data["cover"] or get_best_cover_from_html(soup)
 
     return {
