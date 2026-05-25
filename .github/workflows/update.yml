@@ -2,7 +2,7 @@ name: Update Audible Books
 
 on:
   schedule:
-    - cron: '0 7 * * *'   # Midnight EST
+    - cron: '0 8 * * 1'
 
   workflow_dispatch:
 
