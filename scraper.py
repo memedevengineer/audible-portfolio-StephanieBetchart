@@ -7,12 +7,71 @@ from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
 from datetime import datetime, timezone
 
+USER_AGENTS = [
+
+    # Chrome Windows
+    (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+
+    # Chrome Mac
+    (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+
+    # Firefox Windows
+    (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) "
+        "Gecko/20100101 Firefox/125.0"
+    ),
+
+    # Firefox Linux
+    (
+        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) "
+        "Gecko/20100101 Firefox/125.0"
+    ),
+
+    # Edge Windows
+    (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0"
+    ),
+
+    # Safari Mac
+    (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_4) "
+        "AppleWebKit/605.1.15 (KHTML, like Gecko) "
+        "Version/16.5 Safari/605.1.15"
+    ),
+
+    # Chrome Linux
+    (
+        "Mozilla/5.0 (X11; Linux x86_64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/123.0.0.0 Safari/537.36"
+    )
+]
+
 BASE_URL = "https://www.audible.com/search?searchNarrator="
 MANUAL_JSON = "manual_books.json"
 
 MINIMUM_BOOKS_REQUIRED = 5
 
-headers["User-Agent"] = random.choice(USER_AGENTS)
+HEADERS = {
+    "User-Agent": random.choice(USER_AGENTS),
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept": (
+        "text/html,application/xhtml+xml,application/xml;q=0.9,"
+        "image/webp,*/*;q=0.8"
+    ),
+    "Connection": "keep-alive",
+    "Referer": "https://www.google.com/"
+}
 
 
 def clean_text(text):
