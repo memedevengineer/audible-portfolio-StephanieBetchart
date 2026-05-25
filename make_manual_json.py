@@ -1,4 +1,6 @@
-import csv
+
+
+
 import json
 import re
 import time
@@ -42,6 +44,70 @@ def get_meta_content(soup, selector):
     tag = soup.select_one(selector)
     return clean_text(tag.get("content", "")) if tag else ""
 
+def get_cover_image(soup):
+    selectors = [
+        "picture img",
+        "img.bc-pub-block",
+        "img[data-a-hires]",
+        "img[src*='images-na.ssl-images-amazon.com']",
+        "img[src*='m.media-amazon.com']"
+    ]
+
+    for selector in selectors:
+        for img in soup.select(selector):
+            src = img.get("data-a-hires") or img.get("src") or ""
+
+            if not src:
+                continue
+
+            src_lower = src.lower()
+
+            bad_words = [
+                "share",
+                "social",
+                "background",
+                "hero",
+                "logo",
+                "audible"
+            ]
+
+            if any(word in src_lower for word in bad_words):
+                continue
+
+            return src
+
+    return ""
+
+def extract_release_date(page_text):
+    patterns = [
+        r"Release date:\s*([0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4})",
+        r"Release date\s*([0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4})",
+        r"Release Date:\s*([0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4})",
+        r"Release Date\s*([0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4})",
+        r"Released:\s*([0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4})"
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, page_text, re.I)
+        if match:
+            return clean_text(match.group(1))
+
+    return ""
+
+def extract_author(page_text):
+    patterns = [
+        r"By:\s*(.*?)\s*Narrated by:",
+        r"By:\s*(.*?)\s*Length:",
+        r"By:\s*(.*?)\s*Series:"
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, page_text, re.I)
+        if match:
+            return clean_text(match.group(1))
+
+    return ""
+
 def scrape_book_page(audible_url, narrator_name, credit_note):
     response = requests.get(audible_url, headers=HEADERS, timeout=30)
     response.raise_for_status()
@@ -49,49 +115,47 @@ def scrape_book_page(audible_url, narrator_name, credit_note):
     soup = BeautifulSoup(response.text, "html.parser")
     page_text = clean_text(soup.get_text(" "))
 
-    title = (
-        get_meta_content(soup, 'meta[property="og:title"]')
-        or clean_text(soup.select_one("h1").get_text()) if soup.select_one("h1") else ""
-    )
+    title = get_meta_content(soup, 'meta[property="og:title"]')
 
-    cover = (
-        get_meta_content(soup, 'meta[property="og:image"]')
-        or get_meta_content(soup, 'meta[name="twitter:image"]')
-    )
+    if not title:
+        title_tag = soup.select_one("h1")
+        title = clean_text(title_tag.get_text()) if title_tag else ""
 
-    description = (
-        get_meta_content(soup, 'meta[property="og:description"]')
-        or get_meta_content(soup, 'meta[name="description"]')
-    )
+    cover = get_cover_image(soup)
 
-    author = ""
-    author_match = re.search(r"By:\s*(.*?)\s*Narrated by:", page_text, re.I)
-    if author_match:
-        author = clean_text(author_match.group(1))
+    author = extract_author(page_text)
 
-    release_date = ""
-    release_match = re.search(r"Release date:\s*([0-9\-\/]+)", page_text, re.I)
-    if release_match:
-        release_date = clean_text(release_match.group(1))
+    if not author:
+        author_tag = soup.select_one(".authorLabel a")
+        author = clean_text(author_tag.get_text()) if author_tag else ""
+
+    release_date = extract_release_date(page_text)
+
+    if not release_date:
+        release_tag = soup.select_one(".releaseDateLabel")
+        if release_tag:
+            release_date = clean_text(
+                release_tag.get_text(" ", strip=True)
+            ).replace("Release date:", "").strip()
 
     rating_text = ""
     reviews = 0
 
-    rating_match = re.search(
-        r"([\d.]+)\s*out of 5 stars.*?([\d,]+)\s*ratings?",
-        page_text,
-        re.I
-    )
-
-    if rating_match:
-        rating_text = f"{rating_match.group(1)} out of 5 stars {rating_match.group(2)} ratings"
+    rating_tag = soup.select_one(".ratingsLabel")
+    if rating_tag:
+        rating_text = clean_text(rating_tag.get_text(" ", strip=True))
         reviews = get_review_count(rating_text)
 
-    # If Audible blocks details, at least keep title/cover from metadata
-    if not author and description:
-        author_match = re.search(r"By:\s*(.*?)\s*Narrated by:", description, re.I)
-        if author_match:
-            author = clean_text(author_match.group(1))
+    if not rating_text:
+        rating_match = re.search(
+            r"([\d.]+)\s*out of 5 stars.*?([\d,]+)\s*ratings?",
+            page_text,
+            re.I
+        )
+
+        if rating_match:
+            rating_text = f"{rating_match.group(1)} out of 5 stars {rating_match.group(2)} ratings"
+            reviews = get_review_count(rating_text)
 
     return {
         "title": title,
