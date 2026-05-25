@@ -13,18 +13,47 @@
       font-family: Arial, sans-serif;
     }
 
-    h1 {
-      margin-bottom: 10px;
+    .books-section {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 28px;
+
+      background: rgba(0, 0, 0, 0.35);
+
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+
+      border-radius: 18px;
+
+      box-shadow:
+        0 0 30px rgba(0,0,0,0.35);
+
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .books-section h1 {
+      font-size: 1.7rem;
+      margin: 0 0 10px 0;
+
+      font-weight: 800;
+      letter-spacing: 1px;
+
+      color: #c48b36;
+
+      text-shadow:
+        0 2px 10px rgba(0,0,0,0.8),
+        0 0 25px rgba(0,0,0,0.55);
     }
 
     .stats {
       margin-bottom: 24px;
-      color: #ccc;
+      color: rgba(255,255,255,0.9);
     }
 
     .stats p {
       margin: 4px 0;
-      font-size: 15px;
+      font-size: 1rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.85);
     }
 
     .carousel-container {
@@ -45,10 +74,12 @@
       gap: 22px;
       width: max-content;
       padding-bottom: 20px;
+
       animation: autoScroll 45s linear infinite;
 
       scrollbar-width: none;
       -ms-overflow-style: none;
+      will-change: transform;
     }
 
     .carousel:hover {
@@ -60,12 +91,12 @@
     }
 
     @keyframes autoScroll {
-      from {
-        transform: translateX(0);
+      0% {
+        transform: translate3d(0,0,0);
       }
 
-      to {
-        transform: translateX(-50%);
+      100% {
+        transform: translate3d(-50%,0,0);
       }
     }
 
@@ -75,8 +106,13 @@
       position: relative;
       border-radius: 14px;
       overflow: hidden;
-      background: transparent;
+      background: rgba(255,255,255,0.05);
       flex-shrink: 0;
+
+      border: 1px solid rgba(255,255,255,0.08);
+
+      box-shadow:
+        0 0 18px rgba(0,0,0,0.25);
     }
 
     .book-card img {
@@ -93,11 +129,15 @@
     .overlay {
       position: absolute;
       inset: 0;
+
       background: rgba(0, 0, 0, 0.88);
+
       opacity: 0;
       transition: opacity 0.25s ease;
+
       padding: 16px;
       box-sizing: border-box;
+
       overflow-y: auto;
 
       scrollbar-width: none;
@@ -115,12 +155,20 @@
     .overlay h3 {
       font-size: 16px;
       margin: 0 0 8px;
+
+      color: rgba(255,255,255,0.96);
+
+      text-shadow:
+        0 2px 10px rgba(0,0,0,0.8);
     }
 
     .overlay p {
       font-size: 13px;
-      color: #ddd;
+      color: rgba(255,255,255,0.82);
       margin: 6px 0;
+
+      text-shadow:
+        0 2px 8px rgba(0,0,0,0.85);
     }
 
     .overlay a {
@@ -131,21 +179,34 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
       margin-top: 16px;
       width: 100%;
+
       background: #c48b36;
       color: white;
+
       border-radius: 8px;
+
       padding: 10px 12px;
+
       font-size: 13px;
       font-weight: bold;
+
       box-sizing: border-box;
+
       transition: 0.2s ease;
+
+      box-shadow:
+        0 0 12px rgba(196,139,54,0.25);
     }
 
     .audible-button:hover {
       background: #d89b40;
       transform: scale(1.02);
+
+      box-shadow:
+        0 0 18px rgba(196,139,54,0.45);
     }
 
     .narrator-link {
@@ -158,23 +219,37 @@
     .carousel-arrow {
       position: absolute;
       z-index: 20;
+
       width: 42px;
       height: 42px;
+
       border-radius: 50%;
       border: none;
+
       background: rgba(196, 139, 54, 0.92);
+
       color: white;
+
       cursor: pointer;
+
       font-size: 22px;
+
       transition: 0.2s ease;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
+      box-shadow:
+        0 0 14px rgba(196,139,54,0.35);
     }
 
     .carousel-arrow:hover {
       background: #c48b36;
       transform: scale(1.08);
+
+      box-shadow:
+        0 0 22px rgba(196,139,54,0.55);
     }
 
     .left-arrow {
@@ -190,40 +265,64 @@
       text-align: right;
       font-size: 10px;
       color: white;
+      opacity: 0.85;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      .books-section {
+        padding: 22px;
+      }
+
+      .books-section h1 {
+        font-size: 1.9rem;
+      }
+
+      .book-card {
+        min-width: 185px;
+        max-width: 185px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <h1>Books I've Narrated</h1>
+  <div class="books-section">
 
-  <div class="stats">
-    <p>
-      <strong>Total audiobooks narrated:</strong>
-      <span id="totalBooks">0</span>
-    </p>
-  </div>
+    <h1>Books I've Narrated</h1>
 
-  <div class="carousel-container">
-
-    <button class="carousel-arrow left-arrow" onclick="scrollCarousel(-1)">
-      &#10094;
-    </button>
-
-    <div class="carousel-wrapper">
-      <div id="books" class="carousel"></div>
+    <div class="stats">
+      <p>
+        <strong>Total audiobooks narrated:</strong>
+        <span id="totalBooks">0</span>
+      </p>
     </div>
 
-    <button class="carousel-arrow right-arrow" onclick="scrollCarousel(1)">
-      &#10095;
-    </button>
+    <div class="carousel-container">
 
-  </div>
+      <button class="carousel-arrow left-arrow" onclick="scrollCarousel(-1)">
+        &#10094;
+      </button>
 
-  <div class="last-updated">
-    Last updated:
-    <span id="lastUpdated">Loading...</span>
+      <div class="carousel-wrapper">
+        <div id="books" class="carousel"></div>
+      </div>
+
+      <button class="carousel-arrow right-arrow" onclick="scrollCarousel(1)">
+        &#10095;
+      </button>
+
+    </div>
+
+    <div class="last-updated">
+      Last updated:
+      <span id="lastUpdated">Loading...</span>
+    </div>
+
   </div>
 
   <script>
