@@ -32,6 +32,7 @@
       display: flex;
       align-items: center;
       width: 100%;
+      overflow: hidden;
     }
 
     .carousel-wrapper {
@@ -42,17 +43,30 @@
     .carousel {
       display: flex;
       gap: 22px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
+      width: max-content;
       padding-bottom: 20px;
+      animation: autoScroll 45s linear infinite;
 
-      /* Hide scrollbar */
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
 
+    .carousel:hover {
+      animation-play-state: paused;
+    }
+
     .carousel::-webkit-scrollbar {
       display: none;
+    }
+
+    @keyframes autoScroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
     }
 
     .book-card {
@@ -110,15 +124,35 @@
     }
 
     .overlay a {
-      color: #c48b36;
-      font-weight: bold;
       text-decoration: none;
+    }
+
+    .audible-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 16px;
+      width: 100%;
+      background: #c48b36;
+      color: white;
+      border-radius: 8px;
+      padding: 10px 12px;
       font-size: 13px;
+      font-weight: bold;
+      box-sizing: border-box;
+      transition: 0.2s ease;
+    }
+
+    .audible-button:hover {
+      background: #d89b40;
+      transform: scale(1.02);
     }
 
     .narrator-link {
       display: block;
       margin-top: 4px;
+      color: #c48b36;
+      font-size: 13px;
     }
 
     .carousel-arrow {
@@ -144,18 +178,18 @@
     }
 
     .left-arrow {
-      left: -10px;
+      left: 4px;
     }
 
     .right-arrow {
-      right: -10px;
+      right: 4px;
     }
 
     .last-updated {
       margin-top: 4px;
       text-align: right;
       font-size: 10px;
-      color: rgba(255,255,255,0.45);
+      color: white;
     }
   </style>
 </head>
@@ -165,7 +199,10 @@
   <h1>Books I've Narrated</h1>
 
   <div class="stats">
-    <p><strong>Total audiobooks narrated:</strong> <span id="totalBooks">0</span></p>
+    <p>
+      <strong>Total audiobooks narrated:</strong>
+      <span id="totalBooks">0</span>
+    </p>
   </div>
 
   <div class="carousel-container">
@@ -185,17 +222,24 @@
   </div>
 
   <div class="last-updated">
-    Last updated: <span id="lastUpdated">Loading...</span>
+    Last updated:
+    <span id="lastUpdated">Loading...</span>
   </div>
 
   <script>
     const carousel = document.getElementById("books");
 
     function scrollCarousel(direction) {
+      carousel.style.animationPlayState = "paused";
+
       carousel.scrollBy({
         left: direction * 260,
         behavior: "smooth"
       });
+
+      setTimeout(() => {
+        carousel.style.animationPlayState = "running";
+      }, 3000);
     }
 
     function formatDate(dateString) {
@@ -217,15 +261,15 @@
     fetch("books.json")
       .then(response => response.json())
       .then(data => {
-
         document.getElementById("totalBooks").textContent =
           data.total_books || 0;
 
         document.getElementById("lastUpdated").textContent =
           formatDate(data.last_updated);
 
-        data.books.forEach(book => {
+        const doubledBooks = [...data.books, ...data.books];
 
+        doubledBooks.forEach(book => {
           const div = document.createElement("div");
           div.className = "book-card";
 
@@ -244,7 +288,6 @@
             <img src="${book.cover}" alt="${book.title}">
 
             <div class="overlay">
-
               <h3>${book.title}</h3>
 
               <p>
@@ -263,12 +306,11 @@
 
               ${narrators}
 
-              <br>
-
-              <a href="${book.audible_url}" target="_blank">
-                Listen on Audible
+              <a class="audible-button"
+                 href="${book.audible_url}"
+                 target="_blank">
+                 Listen on Audible
               </a>
-
             </div>
           `;
 
