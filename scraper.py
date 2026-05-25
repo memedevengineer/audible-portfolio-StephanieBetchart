@@ -14,11 +14,14 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9"
 }
 
+
 def clean_text(text):
     return re.sub(r"\s+", " ", text).strip() if text else ""
 
+
 def get_review_count(text):
     numbers = re.findall(r"[\d,]+", text or "")
+
     if not numbers:
         return 0
 
@@ -27,112 +30,182 @@ def get_review_count(text):
     except:
         return 0
 
+
 def make_audible_narrator_link(name):
     return BASE_URL + quote_plus(name)
 
-def scrape_narrator(narrator):
-    url = BASE_URL + quote_plus(narrator)
-    print(f"Scraping narrator: {url}")
 
-    response = requests.get(url, headers=HEADERS, timeout=30)
+def scrape_narrator(narrator):
+
+    url = BASE_URL + quote_plus(narrator)
+
+    print(f"\nScraping narrator: {narrator}")
+    print(url)
+
+    response = requests.get(
+        url,
+        headers=HEADERS,
+        timeout=30
+    )
+
     response.raise_for_status()
 
     soup = BeautifulSoup(response.text, "html.parser")
+
     books = []
 
-    for item in soup.select("li.productListItem"):
-        title_tag = item.select_one("h3 a")
-        if not title_tag:
-            continue
+    items = soup.select("li.productListItem")
 
-        title = clean_text(title_tag.get_text())
+    print(f"Found {len(items)} raw Audible results")
 
-        link = title_tag.get("href", "")
-        if link.startswith("/"):
-            link = "https://www.audible.com" + link
+    for item in items:
 
-        author_tag = item.select_one(".authorLabel a")
-        author = clean_text(author_tag.get_text()) if author_tag else ""
+        try:
 
-        image_tag = item.select_one("img")
-        cover = image_tag.get("src", "") if image_tag else ""
+            title_tag = item.select_one("h3 a")
 
-        rating_tag = item.select_one(".ratingsLabel")
-        rating_text = clean_text(rating_tag.get_text(" ", strip=True)) if rating_tag else ""
-        reviews = get_review_count(rating_text)
+            if not title_tag:
+                continue
 
-        release_tag = item.select_one(".releaseDateLabel")
-        release_date = ""
-        if release_tag:
-            release_date = clean_text(
-                release_tag.get_text(" ", strip=True)
-            ).replace("Release date:", "").strip()
+            title = clean_text(title_tag.get_text())
 
-        narrator_links = item.select(".narratorLabel a")
-        co_narrators = []
+            link = title_tag.get("href", "")
 
-        for n in narrator_links:
-            name = clean_text(n.get_text())
-            if name:
-                co_narrators.append({
-                    "name": name,
-                    "audible_list": make_audible_narrator_link(name)
-                })
+            if link.startswith("/"):
+                link = "https://www.audible.com" + link
 
-        books.append({
-            "title": title,
-            "author": author,
-            "cover": cover,
-            "audible_url": link,
-            "reviews": reviews,
-            "rating_text": rating_text,
-            "release_date": release_date,
-            "searched_narrator": narrator,
-            "credit_note": "",
-            "manual": False,
-            "co_narrators": co_narrators
-        })
+            author_tag = item.select_one(".authorLabel a")
+            author = clean_text(author_tag.get_text()) if author_tag else ""
+
+            image_tag = item.select_one("img.bc-image-inset-border")
+
+            if not image_tag:
+                image_tag = item.select_one("img")
+
+            cover = image_tag.get("src", "") if image_tag else ""
+
+            rating_tag = item.select_one(".ratingsLabel")
+
+            rating_text = (
+                clean_text(rating_tag.get_text(" ", strip=True))
+                if rating_tag else ""
+            )
+
+            reviews = get_review_count(rating_text)
+
+            release_date = ""
+
+            release_tag = item.select_one(".releaseDateLabel")
+
+            if release_tag:
+                release_date = clean_text(
+                    release_tag.get_text(" ", strip=True)
+                )
+
+                release_date = release_date.replace(
+                    "Release date:",
+                    ""
+                ).strip()
+
+            narrator_links = item.select(".narratorLabel a")
+
+            co_narrators = []
+
+            for n in narrator_links:
+
+                name = clean_text(n.get_text())
+
+                if name:
+                    co_narrators.append({
+                        "name": name,
+                        "audible_list": make_audible_narrator_link(name)
+                    })
+
+            books.append({
+                "title": title,
+                "author": author,
+                "cover": cover,
+                "audible_url": link,
+                "reviews": reviews,
+                "rating_text": rating_text,
+                "release_date": release_date,
+                "searched_narrator": narrator,
+                "credit_note": "",
+                "manual": False,
+                "co_narrators": co_narrators
+            })
+
+        except Exception as e:
+            print(f"Failed item for {narrator}")
+            print(e)
+
+    print(f"Successfully scraped {len(books)} books for {narrator}")
 
     return books
 
+
 def load_manual_books():
+
     try:
+
         with open(MANUAL_JSON, "r", encoding="utf-8") as f:
             manual_books = json.load(f)
 
-        print(f"Loaded {len(manual_books)} manual books.")
+        print(f"Loaded {len(manual_books)} manual books")
+
         return manual_books
 
     except FileNotFoundError:
-        print("No manual_books.json found.")
+
+        print("No manual_books.json found")
+
         return []
 
     except json.JSONDecodeError:
-        print("manual_books.json is not valid JSON.")
+
+        print("manual_books.json invalid")
+
         return []
 
+
 def main():
+
     with open("narrators.txt", "r", encoding="utf-8") as f:
-        narrators = [line.strip() for line in f if line.strip()]
+
+        narrators = [
+            line.strip()
+            for line in f
+            if line.strip()
+        ]
+
+    print(f"\nLoaded {len(narrators)} narrators")
 
     all_books = []
 
     for narrator in narrators:
+
         try:
-            all_books.extend(scrape_narrator(narrator))
+
+            books = scrape_narrator(narrator)
+
+            all_books.extend(books)
+
         except Exception as e:
-            print(f"Failed to scrape narrator: {narrator}")
+
+            print(f"\nFAILED narrator: {narrator}")
             print(e)
 
         time.sleep(3)
 
     manual_books = load_manual_books()
+
     all_books.extend(manual_books)
 
     unique = {}
 
     for book in all_books:
-        url = book.get("audible_url", "")
+
+        url = book.get("audible_url", "").strip()
 
         if not url:
             continue
@@ -140,7 +213,11 @@ def main():
         unique[url] = book
 
     final_books = list(unique.values())
-    final_books.sort(key=lambda x: x.get("reviews", 0), reverse=True)
+
+    final_books.sort(
+        key=lambda x: x.get("reviews", 0),
+        reverse=True
+    )
 
     output = {
         "last_updated": datetime.now(timezone.utc).isoformat(),
@@ -149,9 +226,17 @@ def main():
     }
 
     with open("books.json", "w", encoding="utf-8") as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"Saved {len(final_books)} total books.")
+        json.dump(
+            output,
+            f,
+            indent=2,
+            ensure_ascii=False
+        )
+
+    print(f"\nSaved {len(final_books)} total books")
+    print("books.json updated successfully")
+
 
 if __name__ == "__main__":
     main()
