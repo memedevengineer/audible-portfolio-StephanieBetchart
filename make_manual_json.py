@@ -17,94 +17,29 @@ HEADERS = {
 def clean_text(text):
     return re.sub(r"\s+", " ", text).strip() if text else ""
 
-def get_review_count(text):
-    numbers = re.findall(r"[\d,]+", text or "")
-    if not numbers:
-        return 0
-    try:
-        return int(numbers[-1].replace(",", ""))
-    except:
-        return 0
-
 def make_narrator_link(name):
     return "https://www.audible.com/search?searchNarrator=" + quote_plus(name)
 
 def read_google_sheet_rows():
     response = requests.get(GOOGLE_SHEET_CSV_URL, timeout=30)
     response.raise_for_status()
+    return list(csv.DictReader(response.text.splitlines()))
 
-    decoded = response.content.decode("utf-8").splitlines()
-    reader = csv.DictReader(decoded)
+def get_book_asin(audible_url):
+    match = re.search(r"/([A-Z0-9]{10})(?:[/?]|$)", audible_url)
+    return match.group(1) if match else ""
 
-    return list(reader)
+def make_cover_from_asin(asin):
+    if not asin:
+        return ""
 
-def get_meta_content(soup, selector):
-    tag = soup.select_one(selector)
-    return clean_text(tag.get("content", "")) if tag else ""
+    # Direct Amazon/Audible cover image pattern
+    return f"https://m.media-amazon.com/images/P/{asin}.01._SL500_.jpg"
 
-def get_cover_image(soup):
-    selectors = [
-        "picture img",
-        "img.bc-pub-block",
-        "img[data-a-hires]",
-        "img[src*='images-na.ssl-images-amazon.com']",
-        "img[src*='m.media-amazon.com']"
-    ]
-
-    for selector in selectors:
-        for img in soup.select(selector):
-            src = img.get("data-a-hires") or img.get("src") or ""
-
-            if not src:
-                continue
-
-            src_lower = src.lower()
-
-            bad_words = [
-                "share",
-                "social",
-                "background",
-                "hero",
-                "logo",
-                "audible"
-            ]
-
-            if any(word in src_lower for word in bad_words):
-                continue
-
-            return src
-
-    return ""
-
-def extract_release_date(page_text):
-    patterns = [
-        r"Release date:\s*([0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4})",
-        r"Release date\s*([0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4})",
-        r"Release Date:\s*([0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4})",
-        r"Release Date\s*([0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4})",
-        r"Released:\s*([0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4})"
-    ]
-
-    for pattern in patterns:
-        match = re.search(pattern, page_text, re.I)
-        if match:
-            return clean_text(match.group(1))
-
-    return ""
-
-def extract_author(page_text):
-    patterns = [
-        r"By:\s*(.*?)\s*Narrated by:",
-        r"By:\s*(.*?)\s*Length:",
-        r"By:\s*(.*?)\s*Series:"
-    ]
-
-    for pattern in patterns:
-        match = re.search(pattern, page_text, re.I)
-        if match:
-            return clean_text(match.group(1))
-
-    return ""
+def extract_between(text, start, end):
+    pattern = re.escape(start) + r"\s*(.*?)\s*" + re.escape(end)
+    match = re.search(pattern, text, re.I)
+    return clean_text(match.group(1)) if match else ""
 
 def scrape_book_page(audible_url, narrator_name, credit_note):
     response = requests.get(audible_url, headers=HEADERS, timeout=30)
@@ -113,47 +48,32 @@ def scrape_book_page(audible_url, narrator_name, credit_note):
     soup = BeautifulSoup(response.text, "html.parser")
     page_text = clean_text(soup.get_text(" "))
 
-    title = get_meta_content(soup, 'meta[property="og:title"]')
+    asin = get_book_asin(audible_url)
+
+    title_tag = soup.select_one("h1")
+    title = clean_text(title_tag.get_text()) if title_tag else ""
 
     if not title:
-        title_tag = soup.select_one("h1")
-        title = clean_text(title_tag.get_text()) if title_tag else ""
+        og_title = soup.select_one('meta[property="og:title"]')
+        title = clean_text(og_title.get("content", "")) if og_title else ""
 
-    cover = get_cover_image(soup)
-
-    author = extract_author(page_text)
-
-    if not author:
-        author_tag = soup.select_one(".authorLabel a")
-        author = clean_text(author_tag.get_text()) if author_tag else ""
-
-    release_date = extract_release_date(page_text)
-
-    if not release_date:
-        release_tag = soup.select_one(".releaseDateLabel")
-        if release_tag:
-            release_date = clean_text(
-                release_tag.get_text(" ", strip=True)
-            ).replace("Release date:", "").strip()
+    author = extract_between(page_text, "By:", "Narrated by:")
+    release_date = extract_between(page_text, "Release date:", "Language:")
 
     rating_text = ""
     reviews = 0
 
-    rating_tag = soup.select_one(".ratingsLabel")
-    if rating_tag:
-        rating_text = clean_text(rating_tag.get_text(" ", strip=True))
-        reviews = get_review_count(rating_text)
+    rating_match = re.search(
+        r"([\d.]+)\s*out of 5 stars.*?([\d,]+)\s*ratings?",
+        page_text,
+        re.I
+    )
 
-    if not rating_text:
-        rating_match = re.search(
-            r"([\d.]+)\s*out of 5 stars.*?([\d,]+)\s*ratings?",
-            page_text,
-            re.I
-        )
+    if rating_match:
+        rating_text = f"{rating_match.group(1)} out of 5 stars {rating_match.group(2)} ratings"
+        reviews = int(rating_match.group(2).replace(",", ""))
 
-        if rating_match:
-            rating_text = f"{rating_match.group(1)} out of 5 stars {rating_match.group(2)} ratings"
-            reviews = get_review_count(rating_text)
+    cover = make_cover_from_asin(asin)
 
     return {
         "title": title,
@@ -181,7 +101,7 @@ def main():
     for row in rows:
         audible_url = clean_text(row.get("audible_url", ""))
         narrator_name = clean_text(row.get("narrator_name", ""))
-        credit_note = clean_text(row.get("credit_note", "Manual credit"))
+        credit_note = clean_text(row.get("credit_note", "Uncredited on Audible"))
 
         if not audible_url or not narrator_name:
             continue
@@ -189,8 +109,9 @@ def main():
         print(f"Scraping manual book: {audible_url}")
 
         try:
-            book = scrape_book_page(audible_url, narrator_name, credit_note)
-            manual_books.append(book)
+            manual_books.append(
+                scrape_book_page(audible_url, narrator_name, credit_note)
+            )
         except Exception as e:
             print(f"Failed manual book: {audible_url}")
             print(e)
