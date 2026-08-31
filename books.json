@@ -1,12 +1,12 @@
 {
-  "last_updated": "2026-08-24T08:36:48.064523+00:00",
-  "total_books": 22,
+  "last_updated": "2026-08-31T15:41:44.502536+00:00",
+  "total_books": 16,
   "books": [
     {
       "title": "Fake It 'Til You Mate It",
       "author": "Sarah Spade",
       "cover": "https://m.media-amazon.com/images/I/51sUR1fnYFL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Fake-It-Til-You-Mate-It-Audiobook/B0GNV3PHY8?qid=1787560590&intent=discovery&sr=1-6&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_6",
+      "audible_url": "https://www.audible.com/pd/Fake-It-Til-You-Mate-It-Audiobook/B0GNV3PHY8?qid=1788190877&intent=discovery&sr=1-10&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_10",
       "reviews": 51,
       "rating_text": "4.1 51 ratings",
       "release_date": "02-17-26",
@@ -28,9 +28,9 @@
       "title": "Magent 1",
       "author": "Dante King",
       "cover": "https://m.media-amazon.com/images/I/51oiNrWmrzL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Magent-1-Audiobook/B0GST2RSFP?qid=1787560590&intent=discovery&sr=1-7&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_7",
-      "reviews": 34,
-      "rating_text": "4.6 34 ratings",
+      "audible_url": "https://www.audible.com/pd/Magent-1-Audiobook/B0GST2RSFP?qid=1788190877&intent=discovery&sr=1-9&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_9",
+      "reviews": 35,
+      "rating_text": "4.6 35 ratings",
       "release_date": "03-17-26",
       "searched_narrator": "Ann Dahlia",
       "credit_note": "",
@@ -50,7 +50,7 @@
       "title": "Heir of the Emberscale",
       "author": "Shelby Gardner",
       "cover": "https://m.media-amazon.com/images/I/51GhSZ+yLKL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/ac/Heir-of-the-Emberscale-Audiobook/B0GS7HY1BS?qid=1787560590&intent=discovery&sr=1-5&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_5",
+      "audible_url": "https://www.audible.com/ac/Heir-of-the-Emberscale-Audiobook/B0GS7HY1BS?qid=1788190877&intent=discovery&sr=1-7&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_7",
       "reviews": 17,
       "rating_text": "4.9 17 ratings",
       "release_date": "03-12-26",
@@ -72,7 +72,7 @@
       "title": "Magent 2",
       "author": "Dante King",
       "cover": "https://m.media-amazon.com/images/I/51Tbx4dSsiL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Magent-2-Audiobook/B0GYTYQDX3?qid=1787560590&intent=discovery&sr=1-2&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_2",
+      "audible_url": "https://www.audible.com/pd/Magent-2-Audiobook/B0GYTYQDX3?qid=1788190877&intent=discovery&sr=1-4&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_4",
       "reviews": 16,
       "rating_text": "4.9 16 ratings",
       "release_date": "04-28-26",
@@ -91,28 +91,10 @@
       ]
     },
     {
-      "title": "It's Always Been Us",
-      "author": "Bre Rose",
-      "cover": "https://m.media-amazon.com/images/I/61Ntzu9UO+L._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Its-Always-Been-Us-Audiobook/B0G36L61Q6?qid=1787560599&intent=discovery&sr=1-4&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=GYZPB3KESPDZPGKZXCVY&plink=b8DbizSRSBg0gfUL&pageLoadId=QsxZqyaC4wXjnxiQ&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_4",
-      "reviews": 11,
-      "rating_text": "4.7 11 ratings",
-      "release_date": "11-21-25",
-      "searched_narrator": "Stephanie Betschart",
-      "credit_note": "",
-      "manual": false,
-      "co_narrators": [
-        {
-          "name": "Stephanie Betschart",
-          "audible_list": "https://www.audible.com/search?searchNarrator=Stephanie+Betschart"
-        }
-      ]
-    },
-    {
       "title": "Am I a Monster?",
       "author": "J. Boote",
       "cover": "https://m.media-amazon.com/images/I/41SeT85cGrL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Am-I-a-Monster-Audiobook/B0FYRSJ365?qid=1787560590&intent=discovery&sr=1-9&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_9",
+      "audible_url": "https://www.audible.com/pd/Am-I-a-Monster-Audiobook/B0FYRSJ365?qid=1788190877&intent=discovery&sr=1-6&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_6",
       "reviews": 7,
       "rating_text": "4.7 7 ratings",
       "release_date": "11-03-25",
@@ -130,7 +112,7 @@
       "title": "Beating for You",
       "author": "L.L. McAlister",
       "cover": "https://m.media-amazon.com/images/I/51TibSNwbvL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Beating-for-You-Audiobook/B0H96JKF5X?qid=1787560590&intent=discovery&sr=1-1&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_1",
+      "audible_url": "https://www.audible.com/pd/Beating-for-You-Audiobook/B0H96JKF5X?qid=1788190877&intent=discovery&sr=1-5&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_5",
       "reviews": 4,
       "rating_text": "4.8 4 ratings",
       "release_date": "07-17-26",
@@ -149,10 +131,32 @@
       ]
     },
     {
+      "title": "The Barley Corn Girl",
+      "author": "Mara Sand",
+      "cover": "https://m.media-amazon.com/images/I/51P+u+bZ4BL._SL500_.jpg",
+      "audible_url": "https://www.audible.com/ac/The-Barley-Corn-Girl-Audiobook/B0HF55L9FT?qid=1788190877&intent=discovery&sr=1-2&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_2",
+      "reviews": 3,
+      "rating_text": "5.0 3 ratings",
+      "release_date": "08-14-26",
+      "searched_narrator": "Ann Dahlia",
+      "credit_note": "",
+      "manual": false,
+      "co_narrators": [
+        {
+          "name": "Voss Koening",
+          "audible_list": "https://www.audible.com/search?searchNarrator=Voss+Koening"
+        },
+        {
+          "name": "Ann Dahlia",
+          "audible_list": "https://www.audible.com/search?searchNarrator=Ann+Dahlia"
+        }
+      ]
+    },
+    {
       "title": "My Demon",
       "author": "River Fox",
       "cover": "https://m.media-amazon.com/images/I/51sEsa39zYL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/ac/My-Demon-Audiobook/B0GDRLQLPL?qid=1787560590&intent=discovery&sr=1-8&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_8",
+      "audible_url": "https://www.audible.com/ac/My-Demon-Audiobook/B0GDRLQLPL?qid=1788190877&intent=discovery&sr=1-11&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_11",
       "reviews": 3,
       "rating_text": "4.7 3 ratings",
       "release_date": "01-05-26",
@@ -167,10 +171,28 @@
       ]
     },
     {
+      "title": "Archer",
+      "author": "Shae Coon",
+      "cover": "https://m.media-amazon.com/images/I/51KM1Sm1SJL._SL500_.jpg",
+      "audible_url": "https://www.audible.com/pd/Archer-Audiobook/B0GJ2HKS4B?qid=1788190877&intent=discovery&sr=1-12&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_12",
+      "reviews": 3,
+      "rating_text": "4.7 3 ratings",
+      "release_date": "01-22-26",
+      "searched_narrator": "Ann Dahlia",
+      "credit_note": "",
+      "manual": false,
+      "co_narrators": [
+        {
+          "name": "Ann Dahlia",
+          "audible_list": "https://www.audible.com/search?searchNarrator=Ann+Dahlia"
+        }
+      ]
+    },
+    {
       "title": "Blood on the Asphalt",
       "author": "River Fox",
       "cover": "https://m.media-amazon.com/images/I/51XYg3Q--cL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/ac/Blood-on-the-Asphalt-Audiobook/B0GZLKZZKN?qid=1787560590&intent=discovery&sr=1-11&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_11",
+      "audible_url": "https://www.audible.com/ac/Blood-on-the-Asphalt-Audiobook/B0GZLKZZKN?qid=1788190877&intent=discovery&sr=1-14&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_14",
       "reviews": 3,
       "rating_text": "5.0 3 ratings",
       "release_date": "05-06-26",
@@ -189,64 +211,10 @@
       ]
     },
     {
-      "title": "Archer",
-      "author": "Shae Coon",
-      "cover": "https://m.media-amazon.com/images/I/51KM1Sm1SJL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Archer-Audiobook/B0GJ2HKS4B?qid=1787560590&intent=discovery&sr=1-13&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_13",
-      "reviews": 3,
-      "rating_text": "4.7 3 ratings",
-      "release_date": "01-22-26",
-      "searched_narrator": "Ann Dahlia",
-      "credit_note": "",
-      "manual": false,
-      "co_narrators": [
-        {
-          "name": "Ann Dahlia",
-          "audible_list": "https://www.audible.com/search?searchNarrator=Ann+Dahlia"
-        }
-      ]
-    },
-    {
-      "title": "Distortion from the Truth",
-      "author": "Richard Henderson",
-      "cover": "https://m.media-amazon.com/images/I/514AqTDWpBL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Distortion-from-the-Truth-Audiobook/B0GGCBCV98?qid=1787560599&intent=discovery&sr=1-2&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=GYZPB3KESPDZPGKZXCVY&plink=b8DbizSRSBg0gfUL&pageLoadId=QsxZqyaC4wXjnxiQ&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_2",
-      "reviews": 3,
-      "rating_text": "5.0 3 ratings",
-      "release_date": "01-15-26",
-      "searched_narrator": "Stephanie Betschart",
-      "credit_note": "",
-      "manual": false,
-      "co_narrators": [
-        {
-          "name": "Stephanie Betschart",
-          "audible_list": "https://www.audible.com/search?searchNarrator=Stephanie+Betschart"
-        }
-      ]
-    },
-    {
-      "title": "My American Ride",
-      "author": "Danielle Kinderknecht",
-      "cover": "https://m.media-amazon.com/images/I/518+wYutUwL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/My-American-Ride-Audiobook/B0FXHVC69W?qid=1787560599&intent=discovery&sr=1-7&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=GYZPB3KESPDZPGKZXCVY&plink=b8DbizSRSBg0gfUL&pageLoadId=QsxZqyaC4wXjnxiQ&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_7",
-      "reviews": 3,
-      "rating_text": "4.0 3 ratings",
-      "release_date": "10-24-25",
-      "searched_narrator": "Stephanie Betschart",
-      "credit_note": "",
-      "manual": false,
-      "co_narrators": [
-        {
-          "name": "Stephanie Betschart",
-          "audible_list": "https://www.audible.com/search?searchNarrator=Stephanie+Betschart"
-        }
-      ]
-    },
-    {
       "title": "Hexed Bloodline Awakening",
       "author": "James Wheeler",
       "cover": "https://m.media-amazon.com/images/I/51dyQLz9WOL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Hexed-Bloodline-Awakening-Audiobook/B0GY9SVZBX?qid=1787560590&intent=discovery&sr=1-14&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_14",
+      "audible_url": "https://www.audible.com/pd/Hexed-Bloodline-Awakening-Audiobook/B0GY9SVZBX?qid=1788190877&intent=discovery&sr=1-15&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_15",
       "reviews": 2,
       "rating_text": "5.0 2 ratings",
       "release_date": "04-23-26",
@@ -264,7 +232,7 @@
       "title": "Play with Me: Create Life, Control It, Destroy It",
       "author": "Fiona Myers",
       "cover": "https://m.media-amazon.com/images/I/51brRH+F-LL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Play-with-Me-Create-Life-Control-It-Destroy-It-Audiobook/B0G6G6G6QJ?qid=1787560590&intent=discovery&sr=1-15&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_15",
+      "audible_url": "https://www.audible.com/pd/Play-with-Me-Create-Life-Control-It-Destroy-It-Audiobook/B0G6G6G6QJ?qid=1788190877&intent=discovery&sr=1-16&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_16",
       "reviews": 2,
       "rating_text": "5.0 2 ratings",
       "release_date": "12-11-25",
@@ -279,38 +247,24 @@
       ]
     },
     {
-      "title": "Marina Mews",
-      "author": "DL Mitchell",
-      "cover": "https://m.media-amazon.com/images/I/51veDYHjycL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Marina-Mews-Audiobook/B0H1NL6WX1?qid=1787560599&intent=discovery&sr=1-1&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=GYZPB3KESPDZPGKZXCVY&plink=b8DbizSRSBg0gfUL&pageLoadId=QsxZqyaC4wXjnxiQ&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_1",
-      "reviews": 2,
-      "rating_text": "3.0 2 ratings",
-      "release_date": "05-14-26",
-      "searched_narrator": "Stephanie Betschart",
+      "title": "With a Broken Wing",
+      "author": "Savena Rachelle",
+      "cover": "https://m.media-amazon.com/images/I/51KvNSCAbtL._SL500_.jpg",
+      "audible_url": "https://www.audible.com/pd/With-a-Broken-Wing-Audiobook/B0HG8G49JS?qid=1788190877&intent=discovery&sr=1-3&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_3",
+      "reviews": 1,
+      "rating_text": "5.0 1 rating",
+      "release_date": "08-24-26",
+      "searched_narrator": "Ann Dahlia",
       "credit_note": "",
       "manual": false,
       "co_narrators": [
         {
-          "name": "Stephanie Betschart",
-          "audible_list": "https://www.audible.com/search?searchNarrator=Stephanie+Betschart"
-        }
-      ]
-    },
-    {
-      "title": "Haustus",
-      "author": "Gabriela T. Badra",
-      "cover": "https://m.media-amazon.com/images/I/519M2PoDDVL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Haustus-Audiobook/B0FSSSQ5XL?qid=1787560599&intent=discovery&sr=1-6&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=GYZPB3KESPDZPGKZXCVY&plink=b8DbizSRSBg0gfUL&pageLoadId=QsxZqyaC4wXjnxiQ&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_6",
-      "reviews": 2,
-      "rating_text": "4.5 2 ratings",
-      "release_date": "09-29-25",
-      "searched_narrator": "Stephanie Betschart",
-      "credit_note": "",
-      "manual": false,
-      "co_narrators": [
+          "name": "Dean Miller",
+          "audible_list": "https://www.audible.com/search?searchNarrator=Dean+Miller"
+        },
         {
-          "name": "Stephanie Betschart",
-          "audible_list": "https://www.audible.com/search?searchNarrator=Stephanie+Betschart"
+          "name": "Ann Dahlia",
+          "audible_list": "https://www.audible.com/search?searchNarrator=Ann+Dahlia"
         }
       ]
     },
@@ -318,7 +272,7 @@
       "title": "Mothers Can Be Monsters",
       "author": "J Boote",
       "cover": "https://m.media-amazon.com/images/I/51P-8fYSVUL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Mothers-Can-Be-Monsters-Audiobook/B0H9ZZNVW6?qid=1787560590&intent=discovery&sr=1-10&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_10",
+      "audible_url": "https://www.audible.com/pd/Mothers-Can-Be-Monsters-Audiobook/B0H9ZZNVW6?qid=1788190877&intent=discovery&sr=1-8&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_8",
       "reviews": 1,
       "rating_text": "5.0 1 rating",
       "release_date": "07-23-26",
@@ -333,28 +287,10 @@
       ]
     },
     {
-      "title": "Everything Led Me to You",
-      "author": "Sara Kate",
-      "cover": "https://m.media-amazon.com/images/I/516Tk2a2nlL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Everything-Led-Me-to-You-Audiobook/B0G1TZL586?qid=1787560599&intent=discovery&sr=1-5&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=GYZPB3KESPDZPGKZXCVY&plink=b8DbizSRSBg0gfUL&pageLoadId=QsxZqyaC4wXjnxiQ&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_5",
-      "reviews": 1,
-      "rating_text": "5.0 1 rating",
-      "release_date": "11-12-25",
-      "searched_narrator": "Stephanie Betschart",
-      "credit_note": "",
-      "manual": false,
-      "co_narrators": [
-        {
-          "name": "Stephanie Betschart",
-          "audible_list": "https://www.audible.com/search?searchNarrator=Stephanie+Betschart"
-        }
-      ]
-    },
-    {
       "title": "A Good Puck",
       "author": "Rochelle Wolf",
       "cover": "https://m.media-amazon.com/images/I/51bxdt0A3uL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/B0HG9CKWTR?qid=1787560590&intent=discovery&sr=1-3&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_3",
+      "audible_url": "https://www.audible.com/pd/A-Good-Puck-Audiobook/B0HG9CKWTR?qid=1788190877&intent=discovery&sr=1-1&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_1",
       "reviews": 0,
       "rating_text": "Not rated yet",
       "release_date": "09-08-26",
@@ -373,32 +309,10 @@
       ]
     },
     {
-      "title": "The Barley Corn Girl",
-      "author": "Mara Sand",
-      "cover": "https://m.media-amazon.com/images/I/51P+u+bZ4BL._SL500_.jpg",
-      "audible_url": "https://www.audible.com/ac/The-Barley-Corn-Girl-Audiobook/B0HF55L9FT?qid=1787560590&intent=discovery&sr=1-4&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_4",
-      "reviews": 0,
-      "rating_text": "Not rated yet",
-      "release_date": "08-14-26",
-      "searched_narrator": "Ann Dahlia",
-      "credit_note": "",
-      "manual": false,
-      "co_narrators": [
-        {
-          "name": "Voss Koening",
-          "audible_list": "https://www.audible.com/search?searchNarrator=Voss+Koening"
-        },
-        {
-          "name": "Ann Dahlia",
-          "audible_list": "https://www.audible.com/search?searchNarrator=Ann+Dahlia"
-        }
-      ]
-    },
-    {
       "title": "Love Between the Lectures",
       "author": "Christie Curry",
       "cover": "https://m.media-amazon.com/images/G/01/Audible/en_US/images/generic/img-coverart-prod-unavailable._V536565590_.svg",
-      "audible_url": "https://www.audible.com/pd/Love-Between-the-Lectures-Audiobook/B0GTMYD1Q7?qid=1787560590&intent=discovery&sr=1-12&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=1FP2SVBCZYV8ZQ1DJF4S&plink=F65tOX2V9bDpf4uk&pageLoadId=HhrrQqWMDL59mIyK&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_12",
+      "audible_url": "https://www.audible.com/pd/Love-Between-the-Lectures-Audiobook/B0GTMYD1Q7?qid=1788190877&intent=discovery&sr=1-13&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=JE1YX4SF5D1CKD1QDQPA&plink=pTKiPiIlOR1xxmrx&pageLoadId=K8HdrHJRKE4pVqej&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_13",
       "reviews": 0,
       "rating_text": "Not rated yet",
       "release_date": "09-22-26",
@@ -409,24 +323,6 @@
         {
           "name": "Ann Dahlia",
           "audible_list": "https://www.audible.com/search?searchNarrator=Ann+Dahlia"
-        }
-      ]
-    },
-    {
-      "title": "Ghost Writer",
-      "author": "Jennifer Brasington-Crowley",
-      "cover": "https://m.media-amazon.com/images/I/414yWsdXd9L._SL500_.jpg",
-      "audible_url": "https://www.audible.com/pd/Ghost-Writer-Audiobook/B0GYT847VG?qid=1787560599&intent=discovery&sr=1-3&ref_pageloadid=not_applicable&pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&pf_rd_r=GYZPB3KESPDZPGKZXCVY&plink=b8DbizSRSBg0gfUL&pageLoadId=QsxZqyaC4wXjnxiQ&creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&ref=a_search_c3_lProduct_1_3",
-      "reviews": 0,
-      "rating_text": "Not rated yet",
-      "release_date": "05-04-26",
-      "searched_narrator": "Stephanie Betschart",
-      "credit_note": "",
-      "manual": false,
-      "co_narrators": [
-        {
-          "name": "Stephanie Betschart",
-          "audible_list": "https://www.audible.com/search?searchNarrator=Stephanie+Betschart"
         }
       ]
     }
